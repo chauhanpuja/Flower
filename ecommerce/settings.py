@@ -140,14 +140,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL='/media/'
 
-KEY_ID="rzp_test_iKr9ACakLV6NiG"
-KEY_SECRET="qprk2R1FtGGwZRfkx98o86DC"
+
 
 STATICFILES_DIRS=[
-    os.path.join(BASE_DIR,'static')
+    os.path.join(BASE_DIR,'static_in_env')
 ]
-
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+
+KEY_ID="rzp_test_iKr9ACakLV6NiG"
+KEY_SECRET="qprk2R1FtGGwZRfkx98o86DC"
 
 # smtp email configuration
 EMAIL_USE_TLS = True
