@@ -1,0 +1,51 @@
+{%extends 'base.html' %}
+{%block body%}
+<style>
+    h4 {
+        color: indianred;
+    }
+
+    p {
+        color: indigo;
+    }
+</style>
+
+<div class="container">
+    {%for i in product %}
+    <div class="row my-5">
+        <div class="col-md-4 my-2">
+            <img src="/media/{{i.image}}" width="95%" height="200px" alt="...">
+        </div>
+        <div class="col-md-8 my-5">
+
+            <h2>{{i.name}}</h2>
+            <h4>Rs {{i.price}}</h4>
+            <p>{{i.desc}}</p>
+            {%if user.is_authenticated%}
+
+            <a href="{% url 'cart_add' i.id %}"><button class="btn btn-outline-danger" style="width:220px;">Add
+                    Cart</button></a>
+            {%else%}
+            <a href="/handlelogin1"><button class="btn btn-outline-danger" style="width:220px;">Add Cart</button></a>
+
+            {%endif%}
+            <!-- <a href="{% url 'cart_add' i.id %}"><button class="btn btn-outline-danger" style="width:200px;">Add Cart</button></a> -->
+        </div>
+    </div>
+    {% endfor %}
+    <div class="container">
+        <div class="row">
+            {%for cat in category%}
+            <div class="col-md-4">
+
+
+
+                <a href="/?category={{cat.slug}}"><button class="btn btn-outline-danger my-2 ">Click for {{cat.name}}
+                        items<button></a>
+
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+    </div>
+    {%endblock%}

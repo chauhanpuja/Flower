@@ -1,0 +1,55 @@
+{%include 'header2.html' %}
+{% load cart_tag %}
+
+<div class="container bg-white rounded-top mt-5" id="zero-pad">
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-10 col-12 pt-3">
+           
+            <div class="container" style="background-color: orange;" >
+            <div class="d-flex flex-row px-lg-5 mx-lg-5 mobile" id="heading" >
+                <div class="px-lg-5 mr-lg-5" id="produc" ><h3>PRODUCTS</h3></div>
+                <div class="px-lg-5 ml-lg-5" id="prc"><h3>PRICE</h3></div>
+                <div class="px-lg-5 ml-lg-1" id="quantity"><h3>QUANTITY</h3></div>
+                <div class="px-lg-5 ml-lg-3" id="total"><h3>TOTAL</h3></div>
+            </div>
+        </div>
+            {% for key,value in request.session.cart.items %}
+            <div class="d-flex flex-row justify-content-between align-items-center pt-lg-4 pt-2 pb-3 border-bottom mobile">
+                <div class="d-flex flex-row align-items-center">
+                    <div>
+                        <img src="{{value.image}}" style="height: 100px; width:200px"></div>
+                    <div class="d-flex flex-column pl-md-3 pl-1">
+                       
+                        
+                    </div>
+                </div>
+                <div class="pl-md-0 pl-1"><b>${{value.price}}</b></div>
+                <div class="pl-md-0 pl-1"><b>{{value.quantity}}</b></div>
+                <!-- <div class="pl-md-0 pl-2"> <a href="{% url 'item_decrement' value.product_id %}"><span class="fa fa-minus-square text-secondary"></span></a> <span class="px-md-3 px-1">{{value.quantity}}</span><a href="{% url 'item_increment' value.product_id %}"><span class="fa fa-plus-square text-secondary"></span> </a></div> -->
+                <div class="pl-md-0 pl-1"><b>Total {{ value.price|multiply:value.quantity }}</b></div>
+                <!-- <div class="close"><a href="{% url 'item_clear' value.product_id %}">&times;</a></div> -->
+            </div>
+            {%endfor%}
+            
+         
+        </div>
+    </div>
+</div>
+<div class="container bg-light rounded-bottom py-4" id="zero-pad">
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-10 col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- <div><a href="/"> <button class="btn btn-success border border-dark">BACK</button></a> </div> -->
+                <div class="px-md-0 px-1" id="footer-font" style="margin: 10px 0px 0px 300px;"> <b class="pl-md-4">Order Value<span class="pl-md-4">{{cart_total_amount}}</span></b> </div>
+                <div> 
+                    <!-- <form action="/checkout" method="post">
+                        {% csrf_token %}
+                        <input  value="{{cart_total_amount}}" name="amount">
+                        <a><button class="btn btn-success text-white px-lg-5 px-3">Checkout</button> </div></a>
+                    </form> -->
+                    
+                    
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+{%extends 'base.html' %}
+
+{%block body%}
+ <!-- messages -->
+ {%for msg in messages%}
+ <div class="alert alert-{{msg.tags}} alert-dismissible fade show" role="alert">
+   <strong>Message : </strong> {{msg}}
+   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+ </div>
+ {%endfor%}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col md-8">
+            <div class="container">
+            <h3>Contact Us</h3>
+            <form action="/contact" method="post">{% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name='name' placeholder="Enter Your Name">
+                </div>
+                <div class="form-group">
+                    <label for="name">Email</label>
+                    <input type="email" class="form-control" id="email" name='email' placeholder="Enter Your Email">
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Phone</label>
+                    <input type="tel" class="form-control" id="phone" name='phone'
+                        placeholder="Enter Your Phone Number">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="desc">How May We Help You?</label>
+                    <textarea class="form-control" id="desc" name='desc' rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        
+        </div>
+    </div>
+
+        <div class="col md-4" style="text-align: center;">
+           <h1>Address</h1>
+           <p> B.P. Complex, Sector-29, Near Police Chowki, Noida.
+            Contact : 9811623935</p>
+           Paytm : 9170173935</p>
+
+    </div>
+</div>
+</div>
+
+{%endblock%}

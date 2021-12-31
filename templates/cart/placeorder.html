@@ -1,0 +1,83 @@
+{%extends 'base.html' %}
+{% load cart_tag %}
+
+{%block body%}
+
+<div class="container my-4" >
+    <h1 style="color: blue;" style="align-items: center;">You have Ordered Successfullly </h1>
+    <br>
+    <h1 style="color: green;">Now You Can Continue Your Payment Flow</h1> 
+    <!-- <table style="height: 350px;width:800px;text-align: center;">
+
+        <tr style="background-color: orange;">
+
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            
+            <th>Total</th>
+        </tr>
+        {% for key,value in request.session.cart.items %}
+        <tr>
+            <td><img src="{{value.image}}" style="height: 50px; width:100px"></td>
+            <td>${{value.price}}</td>
+            <td><a href="{% url 'item_decrement' value.product_id %}"><span
+                        class="fa fa-minus-square text-secondary"></span></a> <span
+                    class="px-md-3 px-1">{{value.quantity}}</span><a
+                    href="{% url 'item_increment' value.product_id %}"><span
+                        class="fa fa-plus-square text-secondary"></span> </a></td>
+                <td>{{ value.price|multiply:value.quantity }}</td>
+                
+
+        </tr>
+        
+        {%endfor%}
+        
+
+    </table>
+    <div class="container">
+        <tr><div class="px-md-0 px-1" id="footer-font" style="margin: 10px 0px 0px 283px;"> <b class="pl-md-4">SUBTOTAL<span class="pl-md-4">{{cart_total_amount}}</span></b> </div></tr>
+    
+    </div>
+   
+   <a class="btn btn-danger"  id="rzp-button1" style="color: black;" > Placeorder</a>
+   -->
+
+   <br>
+   <a class="btn btn-success"  id="rzp-button1" style="color: black;" > Placeorder</a>
+</div>
+
+
+
+<form action="{%url 'thankyou' %}" method="post">
+    
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+    var options = {
+        "key": "rzp_test_iKr9ACakLV6NiG", // Enter the Key ID generated from the Dashboard
+        "amount": "{{amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "{{user}}",
+        "description": "LzyCrazy",
+        "image": "https://example.com/your_logo",
+        "order_id": "{{order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "callback_url": "http://127.0.0.1:8000/thankyou",
+        "prefill": {
+            "name": "{{user.name}}",
+            "email": "{{user.email}}",
+           
+        },
+        
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    document.getElementById('rzp-button1').onclick = function(e){
+        rzp1.open();
+        e.preventDefault();
+    }
+    </script>
+
+    </form>
+{%endblock%}

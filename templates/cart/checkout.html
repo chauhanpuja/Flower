@@ -1,0 +1,132 @@
+{%extends 'base.html' %}
+{% load cart_tag %}
+{%block body%}
+
+<!-- <div class="container">
+    {%if order is not None%}
+    <h1>{{order}}</h1>
+    <h1>{{payment}}</h1>
+    {%endif%}
+</div> -->
+
+<div class="container my-5">
+    <div class="row">
+        <div class="container">
+            <form method="post" action="{%url 'placeorder' %}">{% csrf_token %}
+
+
+                <h2>Enter Details to Delivery Address:</h2>
+
+                <!-- <input type="hidden" name="itemsJson" id="itemsJson"> -->
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputname">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{user}}"
+                            placeholder="Name" required readonly>
+                        <input type="text" name="order_id" value="{{order_id}}" hidden>
+
+                        <input type="text" name="payment" value="{{payment}}" hidden>
+                        <input type="text" name="amount" value="{{amount}}" hidden>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{user.email}}"
+                            placeholder="Email" required readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress">Address</label>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="1234 Main St" required>
+                </div>
+                <!-- <div class="form-group">
+                        <label for="inputAddress2">Address line 2</label>
+                        <input type="text" class="form-control" id="address2" name="address2" placeholder="Apartment, studio, or floor">
+                    </div> -->
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">City</label>
+                        <input type="text" class="form-control" id="city" name="city" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputState">State</label>
+                        <input type="text" class="form-control" id="state" name="state" placeholder="Enter State" required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputZip">Zip</label>
+                        <input type="text" class="form-control" id="zipcode" name="zipcode" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputZip">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="inputZip">Payment Type</label>
+                    <select name="payment_type" required>
+                    
+                    <option  selected required>-----Please select Payment Type----</option>
+
+
+                    <option value="online transaction" required>Online_Transaction</option>
+                     <option value="cod" required >Cash_on_Delivery</option>
+                    
+                   
+                    
+                    
+                </select>
+                </div>
+            
+                <br><br>
+
+            <table class=" table ">
+
+                <tr class="  bg-warning text-dark">
+                    <th scope="col">Product</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                  </tr>
+                {% for key,value in request.session.cart.items %}
+                <tr>
+                    <!-- <td><img src="{{value.image}}" style="height: 50px; width:100px"></td> -->
+                    <td><div>
+                        <img src="{{value.image}}" style="height: 70px; width:200px"></div>
+                    <div class="d-flex flex-column pl-md-3 pl-1"></td>
+                    <td style="padding:25px"><b>{{value.name}}</b></td>
+                    <td style="padding:25px"><b>{{value.quantity}}</b></td>
+                    <td style="padding:25px"><b>$ {{value.price}}</b></td>
+
+
+                </tr>
+
+                {%endfor%}
+
+
+            </table>
+            <div class="container ">
+                <tr>
+                    <div class="px-md-0 px-1" id="footer-font" style="float: right;color: green; font-size: 20px;"> <b
+                            class="pl-md-4">SUBTOTAL<span class="pl-md-4">{{cart_total_amount}}</span></b>
+                    </div>
+                </tr>
+
+            </div>
+            <br>
+            <a href="?action=success"><button type="submit" class="btn btn-outline-danger mx-3" style="width: 200px;text-align:center;">Cash on Delivery</button>
+            </a>
+
+            <a href="{%url 'placeorder' %}"><button type="submit" class="btn btn-outline-danger" style="width: 200px;text-align:center;">Online Transaction</button>
+            </a>
+
+
+
+
+
+        </div>
+    </form>
+
+    </div>
+</div>
+
+{%endblock%}
